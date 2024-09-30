@@ -4,6 +4,5 @@ function kz = Kzmir(f, m, n, p)
     ky = n*pi/p.Ly;
 
     kz = sqrt(k^2 - kx^2 - ky^2);
-
     kz = conj(kz);
 end
