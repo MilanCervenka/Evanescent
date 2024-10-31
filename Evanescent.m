@@ -195,7 +195,7 @@ plot(fi, Alfai, 'b');
 hold on;
 plot(fem_lumped_data(:,1), fem_lumped_data(:,2), 'r--');
 hold off;
-legend("Analytic", "FEM-lumped", "Location","southeast");
+legend("Analytical", "FEM-analytical", "Location","southeast");
 title(figure_title);
 xlabel("f (Hz)");
 ylabel("\alpha");
