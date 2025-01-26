@@ -3,33 +3,33 @@
 % coupling among individual elements
 
 % which figure from the article will be generated...
-figure = "4(a)";
-% figure = "4(b)";
-% figure = "4(c)";
-% figure = "4(d)";
+figure = "5(a)";
+% figure = "5(b)";
+% figure = "5(c)";
+% figure = "5(d)";
 
-if ( figure == "4(a)" )
+if ( figure == "5(a)" )
     elements = "rectangular";
     symmetry = "periodic";
     fem_lumped_data = load("./data/fem_lumped_rect_periodic.txt");
     figure_title = "Rectangular elements, periodic symmetry";
 end
 
-if ( figure == "4(b)" )
+if ( figure == "5(b)" )
     elements = "rectangular";
     symmetry = "mirror";
     fem_lumped_data = load("./data/fem_lumped_rect_mirror.txt");
     figure_title = "Rectangular elements, mirrir symmetry";
 end
 
-if ( figure == "4(c)" )
+if ( figure == "5(c)" )
     elements = "circular";
     symmetry = "periodic";
     fem_lumped_data = load("./data/fem_lumped_circ_periodic.txt");    
     figure_title = "Circular elements, periodic symmetry";
 end
 
-if ( figure == "4(d)" )
+if ( figure == "5(d)" )
     elements = "circular";
     symmetry = "mirror";
     fem_lumped_data = load("./data/fem_lumped_circ_mirror.txt");  
@@ -69,7 +69,7 @@ rho0 = 1.2;
 rsh = 0.3;
 
 % first resonance frequencies of the QWRs
-% numbered according to Eq.(18)
+% numbered according to Eq.(19)
 fri = linspace(200, 1700, Nmu*Nnu);
 
 % this permutes the QWRs positions randomly
@@ -109,7 +109,7 @@ for countf = 1 : length(fi)
     N = Nmu*Nnu;
     M = zeros(N, N);
 
-    % in the periodic symmetry Eq.(16) holds and the H function
+    % in the periodic symmetry Eq.(17) holds and the H function
     % only depends on the difference of indices |mu-mup|, |nu-nup|
     if ( symmetry == "periodic" )
         for ii=1:Nmu
@@ -123,7 +123,7 @@ for countf = 1 : length(fi)
             end
         end
         
-        % setting the elements of the system matrix of Eq.(17)
+        % setting the elements of the system matrix of Eq.(18)
         for ind = 1 : N
             for indc = ind : N
                 [mu,  nu ] = indmunu(ind, Nmu);
@@ -167,13 +167,13 @@ for countf = 1 : length(fi)
         end
     end
 
-    % right side of Eq.(17)
+    % right side of Eq.(18)
     b  = 2*ones(N, 1);
-    % solution of Eq.(17)
+    % solution of Eq.(18)
     Vi = M \ b;
 
     % calculating the area-weighted velocity on the metasurface
-    % Eq.(33) or Eq.(45)
+    % Eq.(34)
     if ( elements == "rectangular" )
         AvV = (Dx-dx)*(Dy-dy)*sum(Vi)/(Nmu*Dx*Nnu*Dy);
     end
@@ -181,7 +181,7 @@ for countf = 1 : length(fi)
         AvV = pi*a^2*sum(Vi)/(Nmu*Dx*Nnu*Dy);
     end
 
-    % reflection coefficient modulus - Eq.(34)
+    % reflection coefficient modulus - Eq.(35)
     Rkoefi(countf) = abs(1-Z0*AvV);
     % absorption coefficient
     Alfai(countf)  = 1 - Rkoefi(countf)^2;
